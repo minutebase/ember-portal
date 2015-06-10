@@ -63,3 +63,12 @@ test('visiting /bar/baz', function(assert) {
   });
 });
 
+
+test('can give portals classes', function(assert) {
+  visit('/');
+
+  andThen(function() {
+    assert.equal(find("#ember-portal--header.header-portal").length, 1, 'header has a custom class');
+    assert.equal(find("#ember-portal--footer.footer-portal").length, 1, 'footer has a custom class');
+  });
+});

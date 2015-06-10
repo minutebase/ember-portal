@@ -51,6 +51,58 @@ previous content:
 {{/portal-content}}
 ```
 
+## DOM Layout
+
+ember-portal uses [ember-wormhole](https://github.com/yapplabs/ember-wormhole) and manages the DOM element it needs to render the child elements into.
+
+Given the following template:
+
+```hbs
+<div class="header">
+  {{portal-for name="header"}}
+</div>
+
+{{portal-content for="header"}}
+  <div class="content">the content</div>
+{{/portal-content}}
+```
+
+It will result in the following HTML:
+
+```html
+<div class="header">
+  <div class="ember-view"> <!-- {{portal-for component}} -->
+    <div id="ember-portal--header"> <!-- ember-wormhole container -->
+      <div class="content">the content</div> <!-- the content -->
+    </div>
+  </div>
+</div>
+```
+
+The `{{portal-for}}` component takes `class` and `portal-class` attributes to add class names for styling, for example:
+
+```hbs
+<div class="header">
+  {{portal-for name="header" class="header-outer" portal-class="header-inner"}}
+</div>
+
+{{portal-content for="header"}}
+  <div class="content">the content</div>
+{{/portal-content}}
+```
+
+It will result in the following HTML:
+
+```html
+<div class="header">
+  <div class="ember-view header-outer"> <!-- {{portal-for component}} -->
+    <div id="ember-portal--header" class="header-inner"> <!-- ember-wormhole container -->
+      <div class="content">the content</div> <!-- the content -->
+    </div>
+  </div>
+</div>
+```
+
 ## Developing
 
 ### Installation

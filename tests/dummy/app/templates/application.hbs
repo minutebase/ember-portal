@@ -1,10 +1,10 @@
 <h2 id="title">ember-portal</h2>
 
-{{portal-for name="header"}}
+{{portal-for name="header" portal-class="header-portal"}}
 
 {{outlet}}
 
-{{portal-for name="footer"}}
+{{portal-for name="footer" portal-class="footer-portal"}}
 
 <ul>
   <li>{{link-to "Example" "example"}}

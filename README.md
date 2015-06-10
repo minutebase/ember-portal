@@ -2,7 +2,7 @@
 
 Render stuff here, put it over there.
 
-[Demo](https://rlivsey.github.io/ember-portal)
+[Demo](http://minutebase.github.io/ember-portal)
 
 ## Installation
 

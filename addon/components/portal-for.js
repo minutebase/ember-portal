@@ -20,7 +20,7 @@ export default Ember.Component.extend({
 
   movePortalIntoComponent: Ember.on("didInsertElement", function() {
     const portal = this.portalElement();
-    portal.style.display = 'block';
+    portal.style.display = null;
 
     const portalClass = this.get("portal-class");
     if (portalClass && !portal.className) {

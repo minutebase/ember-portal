@@ -1,3 +1,20 @@
-<h2 id="title">Welcome to Ember.js</h2>
+<h2 id="title">ember-portal</h2>
+
+{{portal-for name="header"}}
 
 {{outlet}}
+
+{{portal-for name="footer"}}
+
+<ul>
+  <li>{{link-to "Example" "example"}}
+    <ul>
+      <li>{{link-to "Foo" "example.foo"}}</li>
+      <li>{{link-to "Bar" "example.bar"}}
+        <ul>
+          <li>{{link-to "Baz" "example.bar.baz"}}</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>

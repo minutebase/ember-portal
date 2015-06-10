@@ -1,7 +1,7 @@
 {
   "name": "ember-portal",
-  "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "version": "0.0.1",
+  "description": "Render content somewhere else in your app",
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -15,7 +15,11 @@
   "engines": {
     "node": ">= 0.10.0"
   },
-  "author": "",
+  "author": {
+    "name": "Richard Livsey",
+    "email": "richard@minutebase.com"
+  },
+  "repository": "https://github.com/minutebase/ember-portal.git",
   "license": "MIT",
   "devDependencies": {
     "broccoli-asset-rev": "^2.0.2",
@@ -35,10 +39,11 @@
     "ember-try": "0.0.6"
   },
   "keywords": [
-    "ember-addon"
+    "ember-addon", "portal", "wormhole"
   ],
   "dependencies": {
-    "ember-cli-babel": "^5.0.0"
+    "ember-cli-babel": "^5.0.0",
+    "ember-wormhole": "^0.3.1"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"

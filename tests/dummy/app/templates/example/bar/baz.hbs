@@ -1,9 +1,20 @@
-{{#portal-content for="header"}}
-  <div id="baz-header" class="header">Baz Header</div>
-{{/portal-content}}
+<div class="section">
+  <span class="template-name">example/bar/baz.hbs</span>
 
-{{#portal-content for="footer"}}
-  <div id="baz-footer" class="footer">Baz Footer</div>
-{{/portal-content}}
+  {{#portal-content for="header"}}
+    <div id="baz-header" class="header">
+      Baz Header - defined in example/bar/baz.hbs
+    </div>
+  {{/portal-content}}
 
-This uses both portals, so should show the "Baz Header" and "Baz Footer".
+  {{#portal-content for="footer"}}
+    <div id="baz-footer" class="footer">
+      Baz Footer - defined in example/bar/baz.hbs
+    </div>
+  {{/portal-content}}
+
+  <p>
+    This sets both portals, so overrides its parents
+    and shows the "Baz Header" and "Baz Footer".
+  </p>
+</div>

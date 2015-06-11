@@ -1,11 +1,40 @@
-{{#portal-content for="header"}}
-  <div id="examples-header" class="header">Examples Header</div>
-{{/portal-content}}
+<div class="section">
+  <span class="template-name">example.hbs</span>
 
-{{#portal-content for="footer"}}
-  <div id="examples-footer" class="footer">Examples Footer</div>
-{{/portal-content}}
+  {{#portal-content for="header"}}
+    <div id="examples-header" class="header">
+      Examples Header - defined in example.hbs
+    </div>
+  {{/portal-content}}
 
-<p>This sets both a header and a footer</p>
+  {{#portal-content for="footer"}}
+    <div id="examples-footer" class="footer">
+      <p>
+        Examples Footer - defined in example.hbs
+      </p>
+      <p>
+        <button {{action "clicked"}}>click me</button> - actions work as expected.
+      </p>
+    </div>
+  {{/portal-content}}
 
-{{outlet}}
+  <p>
+    This sets an example header and footer. Navigate around to see the portal content contextually change.
+  </p>
+
+  <ul class="nav">
+    <li>{{link-to "Home" "example"}}
+      <ul>
+        <li>{{link-to "Foo" "example.foo"}}</li>
+        <li>{{link-to "Bar" "example.bar"}}
+          <ul>
+            <li>{{link-to "Baz" "example.bar.baz"}}</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  {{outlet}}
+
+</div>

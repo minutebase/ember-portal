@@ -1,7 +1,14 @@
-{{#portal-content for="header"}}
-  <div id="foo-header" class="header">Foo Header</div>
-{{/portal-content}}
+<div class="section">
+  <span class="template-name">example/foo.hbs</span>
 
-<p>
-  This page only sets a custom header, so should have the "Foo Header" and "Examples Footer".
-</p>
+  {{#portal-content for="header"}}
+    <div id="foo-header" class="header">
+      Foo Header - defined in example/foo.hbs
+    </div>
+  {{/portal-content}}
+
+  <p>
+    This page only sets a custom header, so should have the "Foo Header" and "Examples Footer".
+  </p>
+
+</div>

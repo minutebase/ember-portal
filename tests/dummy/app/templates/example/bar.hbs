@@ -1,9 +1,17 @@
-{{outlet}}
+<div class="section">
+  <span class="template-name">example/bar.hbs</span>
 
-{{#portal-content for="footer"}}
-  <div id="bar-footer" class="footer">Bar Footer</div>
-{{/portal-content}}
+  {{#portal-content for="footer"}}
+    <div id="bar-footer" class="footer">
+      Bar Footer - defined in example/bar.hbs
+    </div>
+  {{/portal-content}}
 
-<p>
-  This page only sets a custom footer, so should have the "Examples Header" and "Bar Footer".
-</p>
+  <p>
+    This page only sets a custom footer, which overrides its parent
+    so the page now has the "Examples Header" and "Bar Footer".
+  </p>
+
+  {{outlet}}
+
+</div>

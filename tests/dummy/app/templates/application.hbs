@@ -1,20 +1,31 @@
-<h2 id="title">ember-portal</h2>
+<div class="section">
+  <span class="template-name">application.hbs</span>
 
-{{portal-for name="header" portal-class="header-portal"}}
+  <h2 id="title">ember-portal</h2>
 
-{{outlet}}
+  <div class="info">
+    <p>Render content to portals on the page &amp; override them in child templates.</p>
+    <p>Greate for dynamic headers / footers / contextual navigations &amp; tools etc...</p>
+  </div>
 
-{{portal-for name="footer" portal-class="footer-portal"}}
+  {{#if showingHeader}}
+    <div class="portal-wrapper">
+      <span class="portal-name">header portal</span>
+      {{portal-for name="header" portal-class="header-portal"}}
+    </div>
+  {{/if}}
 
-<ul>
-  <li>{{link-to "Example" "example"}}
-    <ul>
-      <li>{{link-to "Foo" "example.foo"}}</li>
-      <li>{{link-to "Bar" "example.bar"}}
-        <ul>
-          <li>{{link-to "Baz" "example.bar.baz"}}</li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-</ul>
+  {{outlet}}
+
+  {{#if showingFooter}}
+    <div class="portal-wrapper">
+      <span class="portal-name">footer portal</span>
+      {{portal-for name="footer" portal-class="footer-portal"}}
+    </div>
+  {{/if}}
+
+  <div class="tools">
+    <button {{action "toggleHeader"}}>Toggle header</button>
+    <button {{action "toggleFooter"}}>Toggle footer</button>
+  </div>
+</div>

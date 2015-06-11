@@ -4,6 +4,8 @@ Render stuff here, put it over there.
 
 [Demo](http://minutebase.github.io/ember-portal)
 
+![ember-portal in action](https://raw.githubusercontent.com/minutebase/ember-portal/master/demo.gif)
+
 ## Installation
 
 ```

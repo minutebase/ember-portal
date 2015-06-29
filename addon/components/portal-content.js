@@ -1,13 +1,17 @@
 import Ember from 'ember';
 import portalIdForName from '../utils/portal-id';
 
-const PORTAL_ITEMS = {};
-const ADDED_QUEUE  = Ember.A();
-
 export default Ember.Component.extend({
 
+  portalService: Ember.inject.service("portal"),
+
   for: "default",
-  _items: null,
+
+  items: Ember.computed("for", {
+    get() {
+      return this.get("portalService").itemsFor(this.get("for"));
+    }
+  }),
 
   wormholeName: Ember.computed("for", {
     get() {
@@ -15,46 +19,32 @@ export default Ember.Component.extend({
     }
   }),
 
-  showingPortalItem: Ember.computed("_items.length", {
+  showingPortalItem: Ember.computed("items.length", {
     get() {
-      return this.get("_items.lastObject") === this;
+      return this.get("items.lastObject") === this;
     }
   }),
 
   setupPortalAndRegister: Ember.on("didInsertElement", function() {
-    const name  = this.get("for");
-    const items = PORTAL_ITEMS[name] = PORTAL_ITEMS[name] || Ember.A();
-
-    setupWormholeElement(this.get("wormholeName"));
-
-    ADDED_QUEUE.push(this);
-
-    Ember.run.scheduleOnce("afterRender", null, handleItemsAdded);
-
-    this.set("_items", items);
+    this.setupWormholeElement();
+    this.get("portalService").addPortalContent(this.get("for"), this);
   }),
 
+  setupWormholeElement() {
+    const id = this.get("wormholeName");
+    if (document.getElementById(id)) {
+      return;
+    }
+
+    const rootEl       = document.body;
+    const stackElement = document.createElement('div');
+    stackElement.id    = id;
+    stackElement.style.display = 'none';
+
+    rootEl.appendChild(stackElement);
+  },
+
   teardown: Ember.on("willDestroyElement", function() {
-    this.get("_items").removeObject(this);
+    this.get("portalService").removePortalContent(this.get("for"), this);
   })
 });
-
-function handleItemsAdded() {
-  ADDED_QUEUE.reverse().forEach(item => {
-    item.get("_items").pushObject(item);
-  });
-  ADDED_QUEUE.clear();
-}
-
-function setupWormholeElement(id) {
-  if (document.getElementById(id)) {
-    return;
-  }
-
-  const rootEl       = document.body;
-  const stackElement = document.createElement('div');
-  stackElement.id    = id;
-  stackElement.style.display = 'none';
-
-  rootEl.appendChild(stackElement);
-}

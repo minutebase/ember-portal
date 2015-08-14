@@ -72,3 +72,22 @@ test('can give portals classes', function(assert) {
     assert.equal(find("#ember-portal--footer.footer-portal").length, 1, 'footer has a custom class');
   });
 });
+
+test('should be without deprecation warnings', function(assert) {
+  assert.expect(0);
+  raiseOnDeprecations(function() {
+    visit('/');
+    visit('/foo');
+    visit('/bar');
+    visit('/bar/baz');
+    visit('/');
+  });
+});
+
+function raiseOnDeprecations(fn) {
+  Ember.ENV.RAISE_ON_DEPRECATION = true;
+  fn();
+  andThen(function() {
+    Ember.ENV.RAISE_ON_DEPRECATION = false;
+  });
+}

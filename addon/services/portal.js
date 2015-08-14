@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 const ADDED_QUEUE = Ember.A();
+const REMOVED_QUEUE = Ember.A();
 
 export default Ember.Service.extend({
   portals: null,
@@ -26,20 +27,25 @@ export default Ember.Service.extend({
       ADDED_QUEUE.push({ name, component });
     }
 
-    // run after render to avoid warning that items were modified on didInsertElement hook
     Ember.run.scheduleOnce("afterRender", this, this.flushPortalContent);
   },
 
+  // run after render to avoid warning that items were modified on didInsertElement hook
   flushPortalContent() {
     ADDED_QUEUE.forEach(({name, component}) => {
       this.itemsFor(name).pushObject(component);
     });
-
     ADDED_QUEUE.clear();
+
+    REMOVED_QUEUE.forEach(({name, component}) => {
+      this.itemsFor(name).removeObject(component);
+    });
+    REMOVED_QUEUE.clear();
   },
 
   removePortalContent(name, component) {
-    this.itemsFor(name).removeObject(component);
+    REMOVED_QUEUE.push({name, component});
+    Ember.run.scheduleOnce("afterRender", this, this.flushPortalContent);
   },
 
   // prior to 1.13.x components are inserted in reverse order

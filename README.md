@@ -64,7 +64,7 @@ Given the following template:
   {{portal-for name="header"}}
 </div>
 
-{{portal-content for="header"}}
+{{#portal-content for="header"}}
   <div class="content">the content</div>
 {{/portal-content}}
 ```
@@ -88,7 +88,7 @@ The `{{portal-for}}` component takes `class` and `portal-class` attributes to ad
   {{portal-for name="header" class="header-outer" portal-class="header-inner"}}
 </div>
 
-{{portal-content for="header"}}
+{{#portal-content for="header"}}
   <div class="content">the content</div>
 {{/portal-content}}
 ```

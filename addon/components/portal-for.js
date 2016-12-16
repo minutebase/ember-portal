@@ -1,7 +1,7 @@
-import Ember from 'ember';
+import Component from 'ember-component';
 import portalIdForName from '../utils/portal-id';
 
-export default Ember.Component.extend({
+export default Component.extend({
   name: 'default',
 
   'portal-class': null,
@@ -18,7 +18,9 @@ export default Ember.Component.extend({
     return element;
   },
 
-  movePortalIntoComponent: Ember.on("didInsertElement", function() {
+  didInsertElement() {
+    this._super(...arguments);
+
     const portal = this.portalElement();
     portal.style.display = null;
 
@@ -28,12 +30,13 @@ export default Ember.Component.extend({
     }
 
     this.get("element").appendChild(portal);
-  }),
+  },
 
-  movePortalOutToBody: Ember.on("willDestroyElement", function() {
+  willDestroyElement() {
+    this._super(...arguments);
     const portal = this.portalElement();
     portal.style.display = 'none';
     document.body.appendChild(portal);
-  })
+  }
 
 });

@@ -1,14 +1,17 @@
+import Service from 'ember-service';
+import { scheduleOnce } from 'ember-runloop';
 import Ember from 'ember';
 
 const ADDED_QUEUE = Ember.A();
 const REMOVED_QUEUE = Ember.A();
 
-export default Ember.Service.extend({
+export default Service.extend({
   portals: null,
 
-  setupPortals: Ember.on("init", function() {
+  init() {
+    this._super(...arguments);
     this.set("portals", {});
-  }),
+  },
 
   itemsFor(name) {
     const portals = this.get("portals");
@@ -27,7 +30,7 @@ export default Ember.Service.extend({
       ADDED_QUEUE.push({ name, component });
     }
 
-    Ember.run.scheduleOnce("afterRender", this, this.flushPortalContent);
+    scheduleOnce("afterRender", this, this.flushPortalContent);
   },
 
   // run after render to avoid warning that items were modified on didInsertElement hook
@@ -45,7 +48,7 @@ export default Ember.Service.extend({
 
   removePortalContent(name, component) {
     REMOVED_QUEUE.push({name, component});
-    Ember.run.scheduleOnce("afterRender", this, this.flushPortalContent);
+    scheduleOnce("afterRender", this, this.flushPortalContent);
   },
 
   // prior to 1.13.x components are inserted in reverse order

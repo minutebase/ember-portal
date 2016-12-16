@@ -1,34 +1,42 @@
-import Ember from 'ember';
+import Component from 'ember-component';
+import service from 'ember-service/inject';
+import computed from 'ember-computed';
 import portalIdForName from '../utils/portal-id';
 
-export default Ember.Component.extend({
+export default Component.extend({
 
-  portalService: Ember.inject.service("portal"),
+  portalService: service("portal"),
 
   for: "default",
 
-  items: Ember.computed("for", {
+  items: computed("for", {
     get() {
       return this.get("portalService").itemsFor(this.get("for"));
     }
   }),
 
-  wormholeName: Ember.computed("for", {
+  wormholeName: computed("for", {
     get() {
       return portalIdForName(this.get("for"));
     }
   }),
 
-  showingPortalItem: Ember.computed("items.length", {
+  showingPortalItem: computed("items.length", {
     get() {
       return this.get("items.lastObject") === this;
     }
   }),
 
-  setupPortalAndRegister: Ember.on("didInsertElement", function() {
+  didInsertElement() {
+    this._super(...arguments);
     this.setupWormholeElement();
     this.get("portalService").addPortalContent(this.get("for"), this);
-  }),
+  },
+
+  willDestroyElement() {
+    this._super(...arguments);
+    this.get("portalService").removePortalContent(this.get("for"), this);
+  },
 
   setupWormholeElement() {
     const id = this.get("wormholeName");
@@ -42,9 +50,6 @@ export default Ember.Component.extend({
     stackElement.style.display = 'none';
 
     rootEl.appendChild(stackElement);
-  },
+  }
 
-  teardown: Ember.on("willDestroyElement", function() {
-    this.get("portalService").removePortalContent(this.get("for"), this);
-  })
 });

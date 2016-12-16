@@ -2,14 +2,11 @@ import Ember from 'ember';
 import Application from '../../app';
 import config from '../../config/environment';
 
-export default function startApp(attrs) {
+export default function startApp() {
   let application;
 
-  // use defaults, but you can override
-  let attributes = Ember.assign({}, config.APP, attrs);
-
   Ember.run(() => {
-    application = Application.create(attributes);
+    application = Application.create(config.APP);
     application.setupForTesting();
     application.injectTestHelpers();
   });

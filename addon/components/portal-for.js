@@ -1,4 +1,4 @@
-import Component from 'ember-component';
+import Component from '@ember/component';
 import portalIdForName from '../utils/portal-id';
 
 export default Component.extend({

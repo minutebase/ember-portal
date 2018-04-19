@@ -1,6 +1,6 @@
-import Component from 'ember-component';
-import service from 'ember-service/inject';
-import computed from 'ember-computed';
+import Component from '@ember/component';
+import { inject as service } from '@ember/service';
+import { computed } from '@ember/object';
 import portalIdForName from '../utils/portal-id';
 
 export default Component.extend({

@@ -1,6 +1,6 @@
 # Ember Portal Changelog
 
-### master
+### v0.2.0
 
 - Updated ember-cli to 3.1.2
 - Removed support for ember <= 1.13.x which changed order of component insertion

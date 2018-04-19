@@ -24,12 +24,6 @@ export default Service.extend({
   },
 
   addPortalContent(name, component) {
-    if (this.addToQueueInReverse()) {
-      ADDED_QUEUE.unshift({ name, component });
-    } else {
-      ADDED_QUEUE.push({ name, component });
-    }
-
     scheduleOnce("afterRender", this, this.flushPortalContent);
   },
 
@@ -49,11 +43,5 @@ export default Service.extend({
   removePortalContent(name, component) {
     REMOVED_QUEUE.push({name, component});
     scheduleOnce("afterRender", this, this.flushPortalContent);
-  },
-
-  // prior to 1.13.x components are inserted in reverse order
-  addToQueueInReverse() {
-    const [maj, min] = Ember.VERSION.split('.').map(i => parseInt(i, null));
-    return maj === 1 && min < 13;
   }
 });

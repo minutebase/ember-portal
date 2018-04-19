@@ -1,9 +1,9 @@
-import Service from 'ember-service';
-import { scheduleOnce } from 'ember-runloop';
-import Ember from 'ember';
+import { A } from '@ember/array';
+import Service from '@ember/service';
+import { scheduleOnce } from '@ember/runloop';
 
-const ADDED_QUEUE = Ember.A();
-const REMOVED_QUEUE = Ember.A();
+const ADDED_QUEUE = A();
+const REMOVED_QUEUE = A();
 
 export default Service.extend({
   portals: null,
@@ -17,13 +17,14 @@ export default Service.extend({
     const portals = this.get("portals");
     let items = portals[name];
     if (!items) {
-      items = Ember.A();
+      items = A();
       portals[name] = items;
     }
     return items;
   },
 
   addPortalContent(name, component) {
+    ADDED_QUEUE.push({ name, component });
     scheduleOnce("afterRender", this, this.flushPortalContent);
   },
 
